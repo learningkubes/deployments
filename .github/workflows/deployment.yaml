@@ -23,7 +23,7 @@ jobs:
       - name: fetching tag
         id: fetch
         run: |
-          version=$(grep -Po '\#\# \d.\d.\d.\d+ - \d\d\d\d-\d\d-\d\d' RELEASE_NOTES.md | grep -Po '(\d+\.\d+\.\d+\.\d+)' | head -1)
+          version=$(grep -Po '\#\# \d.\d.\d.\d+ - \d\d\d\d-\d\d-\d\d' ./RELEASE_NOTES.md | grep -Po '(\d+\.\d+\.\d+\.\d+)' | head -1)
           echo "version:$version"
           echo "upcoming_version=$version" > $GITHUB_OUTPUT
       - name: checkout code
