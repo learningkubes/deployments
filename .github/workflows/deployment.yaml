@@ -30,16 +30,17 @@ jobs:
       - name: moving files to bucket
         run: |
           gcloud storage rsync -r . gs://dev-bucket-12341/
-  # tag-release:
-  #   runs-on: ubuntu-latest
-  #   needs: dev-deployment
-  #   steps:
-  #     - name: create release
-  #       uses: actions/create-release@v1
-  #       env:
-  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  #       with:
-  #         release_name: release-${{ needs.dev-deployment.outputs.release_tag }}
-  #         tag_name: ${{ needs.dev-deployment.outputs.release_tag }}
-  #         body: |
-  #           release-${{ needs.dev-deployment.outputs.release_tag }}
+  tag-release:
+    runs-on: ubuntu-latest
+    needs: dev-deployment
+    steps:
+      - name: create release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          release_name: release-${{ needs.dev-deployment.outputs.release_tag }}
+          tag_name: ${{ github.ref }}
+          #tag_name: ${{ needs.dev-deployment.outputs.release_tag }}
+          body: |
+            release-${{ needs.dev-deployment.outputs.release_tag }}
