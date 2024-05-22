@@ -11,16 +11,16 @@ jobs:
     outputs:
       release_tag: ${{ steps.fetch.outputs.upcoming_version }}
     steps:
+      - name: checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: fetching tag
         id: fetch
         run: |
           version=$(grep -Po '\#\# \d.\d.\d.\d+ - \d\d\d\d-\d\d-\d\d' RELEASE_NOTES.md | grep -Po '(\d+\.\d+\.\d+\.\d+)' | head -1)
           echo "version:$version"
           echo "upcoming_version=$version" > $GITHUB_OUTPUT
-      - name: checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
       - name: authenticate with gcp
         uses: 'google-github-actions/auth@v2'
         with:
