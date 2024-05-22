@@ -39,7 +39,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ needs.dev-deployment.outputs.release_tag }}
           release_name: release-${{ needs.dev-deployment.outputs.release_tag }}
+          tag_name: ${{ needs.dev-deployment.outputs.release_tag }}
           body: |
             release-${{ needs.dev-deployment.outputs.release_tag }}
