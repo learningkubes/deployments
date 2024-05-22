@@ -3,27 +3,18 @@ on:
   push:
     branches:
       - 'dev'
-      - 'int'
-      - 'prod'
-    paths:
-     - 'Development/**'
-     - 'Integration/**'
-     - 'Production/**'
 jobs:
   dev-deployment:
     if: github.ref == 'refs/heads/dev'
     runs-on: ubuntu-latest
     environment: dev
-    defaults:
-      run:
-        working-directory: Development
     outputs:
       release_tag: ${{ steps.fetch.outputs.upcoming_version }}
     steps:
       - name: fetching tag
         id: fetch
         run: |
-          version=$(grep -Po '\#\# \d.\d.\d.\d+ - \d\d\d\d-\d\d-\d\d' ./RELEASE_NOTES.md | grep -Po '(\d+\.\d+\.\d+\.\d+)' | head -1)
+          version=$(grep -Po '\#\# \d.\d.\d.\d+ - \d\d\d\d-\d\d-\d\d' RELEASE_NOTES.md | grep -Po '(\d+\.\d+\.\d+\.\d+)' | head -1)
           echo "version:$version"
           echo "upcoming_version=$version" > $GITHUB_OUTPUT
       - name: checkout code
