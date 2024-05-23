@@ -47,10 +47,10 @@ jobs:
           create_credentials_file: true
           workload_identity_provider: 'projects/656831359359/locations/global/workloadIdentityPools/github-actions-pool/providers/github'
           service_account: 'github-actions-sa@bustling-joy-417204.iam.gserviceaccount.com'
-      - id: 'gcloud'
-        name: 'gcloud'
-        run: |-
-         gcloud auth login --brief --cred-file="${{ steps.auth.outputs.credentials_file_path }}"
+      # - id: 'gcloud'
+      #   name: 'gcloud'
+      #   run: |-
+      #    gcloud auth login --brief --cred-file="${{ steps.auth.outputs.credentials_file_path }}"
       - name: set up gcloud
         uses: 'google-github-actions/setup-gcloud@v2'
       - name: moving files to bucket
