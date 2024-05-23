@@ -21,6 +21,12 @@ jobs:
           version=$(grep -Po '\#\# \d.\d.\d.\d+ - \d\d\d\d-\d\d-\d\d' RELEASE_NOTES.md | grep -Po '(\d+\.\d+\.\d+\.\d+)' | head -1)
           echo "version:$version"
           echo "upcoming_version=$version" > $GITHUB_OUTPUT
+      - uses: mukunku/tag-exists-action@v1.6.0
+        id: check-tag
+        with: 
+          tag: ${{ steps.fetch.outputs.upcoming_version }}
+      - run: echo "Tag ${{ steps.fetch.outputs.upcoming_version }} already exists!. Please check and update proper version"
+        if: steps.check-tag.outputs.exists == 'true' 
       - name: authenticate with gcp
         uses: 'google-github-actions/auth@v2'
         with:
