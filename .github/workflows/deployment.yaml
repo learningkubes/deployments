@@ -6,6 +6,9 @@ on:
 jobs:
   dev-deployment:
     if: github.ref == 'refs/heads/dev'
+    permissions:
+      id-token: write
+      contents: read
     runs-on: ubuntu-latest
     environment: dev
     outputs:
