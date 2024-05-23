@@ -25,8 +25,14 @@ jobs:
         id: check-tag
         with: 
           tag: ${{ steps.fetch.outputs.upcoming_version }}
-      - run: echo "Tag ${{ steps.fetch.outputs.upcoming_version }} already exists!. Please check and update proper version"
-        if: steps.check-tag.outputs.exists == 'true' 
+      # - run: echo "Tag ${{ steps.fetch.outputs.upcoming_version }} already exists!. Please check and update proper version"
+      #   if: steps.check-tag.outputs.exists == 'true' 
+      - name: result of checking tag in previous step
+        run: |
+          if [ ${{ steps.fetch.outputs.upcoming_version }} == 'true' ]; then
+            echo ""Tag ${{ steps.fetch.outputs.upcoming_version }} already exists!. Please check and update proper version""
+            exit 1
+          fi
       - name: authenticate with gcp
         uses: 'google-github-actions/auth@v2'
         with:
