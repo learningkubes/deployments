@@ -33,10 +33,17 @@ jobs:
             echo ""Tag ${{ steps.fetch.outputs.upcoming_version }} already exists!. Please check and update proper version""
             exit 1
           fi
-      - name: authenticate with gcp
-        uses: 'google-github-actions/auth@v2'
+      # - name: authenticate with gcp
+      #   uses: 'google-github-actions/auth@v2'
+      #   with:
+      #     credentials_json: '${{ secrets.GCP_CREDS }}'
+      - id: 'auth'
+        name: 'Authenticate to Google Cloud'
+        uses: 'google-github-actions/auth@v1'
         with:
-          credentials_json: '${{ secrets.GCP_CREDS }}'
+          create_credentials_file: true
+          workload_identity_provider: 'projects/bustling-joy-417204/locations/global/workloadIdentityPools/github-actions-pool/providers/github-actions'
+          service_account: 'github-actions-sa@bustling-joy-417204.iam.gserviceaccount.com'
       - name: set up gcloud
         uses: 'google-github-actions/setup-gcloud@v2'
       - name: moving files to bucket
