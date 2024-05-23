@@ -29,7 +29,7 @@ jobs:
       #   if: steps.check-tag.outputs.exists == 'true' 
       - name: result of checking tag in previous step
         run: |
-          if [ ${{ steps.fetch.outputs.upcoming_version }} == 'true' ]; then
+          if [ ${{ steps.check-tag.outputs.exists }} == 'true' ]; then
             echo ""Tag ${{ steps.fetch.outputs.upcoming_version }} already exists!. Please check and update proper version""
             exit 1
           fi
