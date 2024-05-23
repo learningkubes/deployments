@@ -51,8 +51,8 @@ jobs:
         name: 'gcloud'
         run: |-
          gcloud auth login --brief --cred-file="${{ steps.auth.outputs.credentials_file_path }}"
-      # - name: set up gcloud
-      #   uses: 'google-github-actions/setup-gcloud@v2'
+      - name: set up gcloud
+        uses: 'google-github-actions/setup-gcloud@v2'
       - name: moving files to bucket
         run: |
           gcloud storage rsync -r . gs://dev-bucket-12341/
